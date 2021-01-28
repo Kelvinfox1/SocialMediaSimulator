@@ -173,6 +173,7 @@ const OrderScreen = ({ match }) => {
                   <Col>Ksh{order.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
+
               {!order.isPaid && (
                 <ListGroup.Item>
                   {loadingPay && <Loader />}
@@ -180,7 +181,7 @@ const OrderScreen = ({ match }) => {
                     <Loader />
                   ) : (
                     <PayPalButton
-                      amount={order.totalPrice}
+                      amount={order.totalPrice / 100}
                       onSuccess={successPaymentHandler}
                     />
                   )}
