@@ -10,28 +10,40 @@ const ShippingScreen = ({ history }) => {
   const { shippingAddress } = cart
 
   const [address, setAddress] = useState(shippingAddress.address)
+  const [phone, setPhone] = useState(shippingAddress.phone)
 
   const dispatch = useDispatch()
 
   const submitHandler = (e) => {
     e.preventDefault()
-    dispatch(saveShippingAddress({ address }))
+    dispatch(saveShippingAddress({ address, phone }))
     history.push('/payment')
   }
 
   return (
     <FormContainer>
       <CheckoutSteps step1 step2 />
-      <h1>Shipping</h1>
+      <h1>Shipping and for Lipa na Mpesa input Phone Number</h1>
       <Form onSubmit={submitHandler}>
         <Form.Group controlId='address'>
-          <Form.Label>Link</Form.Label>
+          <Form.Label>Link Address</Form.Label>
           <Form.Control
             type='text'
-            placeholder='Enter or paste Link'
+            placeholder='copy paste link'
             value={address}
             required
             onChange={(e) => setAddress(e.target.value)}
+          ></Form.Control>
+        </Form.Group>
+
+        <Form.Group controlId='phone'>
+          <Form.Label>Phone Number</Form.Label>
+          <Form.Control
+            type='text'
+            placeholder='Enter Mpesa number'
+            value={phone}
+            required
+            onChange={(e) => setPhone(e.target.value)}
           ></Form.Control>
         </Form.Group>
 

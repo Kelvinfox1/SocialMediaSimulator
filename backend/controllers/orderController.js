@@ -117,8 +117,8 @@ const getOrders = asyncHandler(async (req, res) => {
 export {
   addOrderItems,
   getOrderById,
-  updateOrderToDelivered,
   updateOrderToPaid,
+  updateOrderToDelivered,
   getMyOrders,
   getOrders,
 }

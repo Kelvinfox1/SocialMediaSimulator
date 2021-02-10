@@ -1,3 +1,4 @@
+import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { Container } from 'react-bootstrap'
 import Header from './components/Header'
@@ -15,14 +16,14 @@ import OrderScreen from './screens/OrderScreen'
 import UserListScreen from './screens/UserListScreen'
 import UserEditScreen from './screens/UserEditScreen'
 import ProductListScreen from './screens/ProductListScreen'
-// import ProductEditScreen from './screens/ProductEditScreen'
-// import OrderListScreen from './screens/OrderListScreen'
+import ProductEditScreen from './screens/ProductEditScreen'
+import OrderListScreen from './screens/OrderListScreen'
 
 const App = () => {
   return (
     <Router>
       <Header />
-      <main className='py-4'>
+      <main className='py-3'>
         <Container>
           <Route path='/order/:id' component={OrderScreen} />
           <Route path='/shipping' component={ShippingScreen} />
@@ -38,6 +39,20 @@ const App = () => {
           <Route
             path='/admin/productlist'
             component={ProductListScreen}
+            exact
+          />
+          <Route
+            path='/admin/productlist/:pageNumber'
+            component={ProductListScreen}
+            exact
+          />
+          <Route path='/admin/product/:id/edit' component={ProductEditScreen} />
+          <Route path='/admin/orderlist' component={OrderListScreen} />
+          <Route path='/search/:keyword' component={HomeScreen} exact />
+          <Route path='/page/:pageNumber' component={HomeScreen} exact />
+          <Route
+            path='/search/:keyword/page/:pageNumber'
+            component={HomeScreen}
             exact
           />
           <Route path='/' component={HomeScreen} exact />

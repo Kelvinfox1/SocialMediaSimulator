@@ -32,10 +32,10 @@ const CartScreen = ({ match, location, history }) => {
   return (
     <Row>
       <Col md={8}>
-        <h1>Orders Cart</h1>
+        <h1>Shopping Cart</h1>
         {cartItems.length === 0 ? (
           <Message>
-            You havent selected any orders <Link to='/'>Go Back </Link>
+            Your cart is empty <Link to='/'>Go Back</Link>
           </Message>
         ) : (
           <ListGroup variant='flush'>
@@ -43,10 +43,10 @@ const CartScreen = ({ match, location, history }) => {
               <ListGroup.Item key={item.product}>
                 <Row>
                   <Col md={2}>
-                    <Image src={item.image} alt={item.service} fluid rounded />
+                    <Image src={item.image} alt={item.name} fluid rounded />
                   </Col>
                   <Col md={3}>
-                    <Link to={`/product/${item.product}`}>{item.service}</Link>
+                    <Link to={`/product/${item.product}`}>{item.name}</Link>
                   </Col>
                   <Col md={2}>ksh.{item.price}</Col>
                   <Col md={2}>
@@ -59,7 +59,7 @@ const CartScreen = ({ match, location, history }) => {
                         )
                       }
                     >
-                      {[...Array(1000).keys()].map((x) => (
+                      {[...Array(item.countInStock).keys()].map((x) => (
                         <option key={x + 1} value={x + 1}>
                           {x + 1}
                         </option>
@@ -86,8 +86,8 @@ const CartScreen = ({ match, location, history }) => {
           <ListGroup variant='flush'>
             <ListGroup.Item>
               <h2>
-                Subtotal: ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
-                Orders
+                Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
+                items
               </h2>
               ksh.
               {cartItems

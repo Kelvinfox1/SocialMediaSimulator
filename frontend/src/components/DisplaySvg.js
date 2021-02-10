@@ -13,12 +13,14 @@ const DisplaySvg = () => {
           />
         </Col>
         <Col md={6}>
-          <h1>#1 SOCIAL MEDIA MARKETTING PLATFORM</h1>
-          <p>A result-driven platform to help you make an impression online</p>
-          <p>
+          <h1 className='title'>#1 SOCIAL MEDIA MARKETTING PLATFORM</h1>
+          <p className='description'>
+            A result-driven platform to help you make an impression online
+          </p>
+          <p className='description'>
             With unbeatable offers promote your videos/ brands by going viral
           </p>
-          <p>.... We Walk the Talk</p>
+          <p className='description'>.... We Walk the Talk</p>
         </Col>
       </Row>
     </Container>

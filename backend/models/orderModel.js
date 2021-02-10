@@ -9,7 +9,7 @@ const orderSchema = mongoose.Schema(
     },
     orderItems: [
       {
-        service: { type: String, required: true },
+        name: { type: String, required: true },
         qty: { type: Number, required: true },
         image: { type: String, required: true },
         price: { type: Number, required: true },
@@ -22,12 +22,13 @@ const orderSchema = mongoose.Schema(
     ],
     shippingAddress: {
       address: { type: String, required: true },
+      phone: { type: String, required: true },
     },
     paymentMethod: {
       type: String,
-      require: true,
+      required: true,
     },
-    PaymentResult: {
+    paymentResult: {
       id: { type: String },
       status: { type: String },
       update_time: { type: String },

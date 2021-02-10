@@ -36,10 +36,10 @@ h2 {
 }
 
 .carousel img {
-  height: 300px;
+  height: 200px;
   padding: 30px;
   margin: 40px;
-  border-radius: 50%;
+  border-radius: 20%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -50,4 +50,11 @@ h2 {
   .carousel-caption h2 {
     font-size: 2.5vw;
   }
+}
+
+.title {
+  font-family: 'Pacifico', cursive;
+}
+.description {
+  font-size: larger;
 }

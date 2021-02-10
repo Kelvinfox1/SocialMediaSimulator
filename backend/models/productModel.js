@@ -23,29 +23,25 @@ const productSchema = mongoose.Schema(
       required: true,
       ref: 'User',
     },
-    service: {
+    name: {
       type: String,
-      require: true,
+      required: true,
     },
     image: {
       type: String,
       required: true,
     },
-    ratePerThousand: {
-      type: String,
-      require: true,
-    },
     brand: {
       type: String,
-      require: true,
+      required: true,
     },
     category: {
       type: String,
-      require: true,
+      required: true,
     },
     description: {
       type: String,
-      require: true,
+      required: true,
     },
     reviews: [reviewSchema],
     rating: {
@@ -60,17 +56,12 @@ const productSchema = mongoose.Schema(
     },
     price: {
       type: Number,
-      require: true,
+      required: true,
       default: 0,
     },
-    min: {
+    countInStock: {
       type: Number,
-      require: true,
-      default: 0,
-    },
-    max: {
-      type: Number,
-      require: true,
+      required: true,
       default: 0,
     },
   },

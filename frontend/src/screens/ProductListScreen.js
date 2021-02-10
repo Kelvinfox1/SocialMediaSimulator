@@ -4,13 +4,13 @@ import { Table, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-// import Paginate from '../components/Paginate'
+import Paginate from '../components/Paginate'
 import {
   listProducts,
   deleteProduct,
   createProduct,
-} from '../actions/productAction'
-import { PRODUCT_CREATE_RESET } from '../constants/productConstant'
+} from '../actions/productActions'
+import { PRODUCT_CREATE_RESET } from '../constants/productConstants'
 
 const ProductListScreen = ({ history, match }) => {
   const pageNumber = match.params.pageNumber || 1
@@ -18,7 +18,7 @@ const ProductListScreen = ({ history, match }) => {
   const dispatch = useDispatch()
 
   const productList = useSelector((state) => state.productList)
-  const { loading, error, products } = productList
+  const { loading, error, products, page, pages } = productList
 
   const productDelete = useSelector((state) => state.productDelete)
   const {
@@ -74,11 +74,11 @@ const ProductListScreen = ({ history, match }) => {
     <>
       <Row className='align-items-center'>
         <Col>
-          <h1>Service</h1>
+          <h1>Products</h1>
         </Col>
         <Col className='text-right'>
           <Button className='my-3' onClick={createProductHandler}>
-            <i className='fas fa-plus'></i> Create Service
+            <i className='fas fa-plus'></i> Create Product
           </Button>
         </Col>
       </Row>
@@ -107,8 +107,8 @@ const ProductListScreen = ({ history, match }) => {
               {products.map((product) => (
                 <tr key={product._id}>
                   <td>{product._id}</td>
-                  <td>{product.service}</td>
-                  <td>ksh{product.price}</td>
+                  <td>{product.name}</td>
+                  <td>${product.price}</td>
                   <td>{product.category}</td>
                   <td>{product.brand}</td>
                   <td>
@@ -129,7 +129,7 @@ const ProductListScreen = ({ history, match }) => {
               ))}
             </tbody>
           </Table>
-          {/* <Paginate pages={pages} page={page} isAdmin={true} /> */}
+          <Paginate pages={pages} page={page} isAdmin={true} />
         </>
       )}
     </>
