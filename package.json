@@ -1,7 +1,7 @@
 {
-  "name": "proshop",
+  "name": "myfirmsmm",
   "version": "1.0.0",
-  "description": "MERN shopping cart app",
+  "description": "social media marketing platform",
   "main": "server.js",
   "type": "module",
   "scripts": {
@@ -13,18 +13,22 @@
     "data:destroy": "node backend/seeder -d",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
-  "author": "Brad Traversy",
+  "author": "Kelvin Ngure",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
     "colors": "^1.4.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-async-handler": "^1.1.4",
     "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.1",
     "mongoose": "^5.10.6",
     "morgan": "^1.10.0",
-    "multer": "^1.4.2"
+    "multer": "^1.4.2",
+    "request": "^2.88.2"
   },
   "devDependencies": {
     "concurrently": "^5.3.0",

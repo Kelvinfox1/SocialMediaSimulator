@@ -85,6 +85,10 @@ const OrderScreen = ({ match, history }) => {
     dispatch(deliverOrder(order))
   }
 
+  const lipaNaMpesa = () => {
+    console.log('mpesa')
+  }
+
   return loading ? (
     <Loader />
   ) : error ? (
@@ -176,7 +180,7 @@ const OrderScreen = ({ match, history }) => {
                   <Col>ksh.{order.itemsPrice}</Col>
                 </Row>
               </ListGroup.Item>
-              <ListGroup.Item>
+              {/*   <ListGroup.Item>
                 <Row>
                   <Col>Shipping</Col>
                   <Col>ksh.{order.shippingPrice}</Col>
@@ -187,14 +191,14 @@ const OrderScreen = ({ match, history }) => {
                   <Col>Tax</Col>
                   <Col>ksh.{order.taxPrice}</Col>
                 </Row>
-              </ListGroup.Item>
+              </ListGroup.Item> */}
               <ListGroup.Item>
                 <Row>
                   <Col>Total</Col>
                   <Col>ksh.{order.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
-              {!order.isPaid && (
+              {!order.isPaid && order.paymentMethod === 'PayPal' && (
                 <ListGroup.Item>
                   {loadingPay && <Loader />}
                   {!sdkReady ? (
@@ -207,6 +211,23 @@ const OrderScreen = ({ match, history }) => {
                   )}
                 </ListGroup.Item>
               )}
+              {!order.isPaid && order.paymentMethod !== 'PayPal' && (
+                <ListGroup.Item>
+                  <Button
+                    type='button'
+                    className='btn btn-block mpesa'
+                    variant='light'
+                    onClick={lipaNaMpesa}
+                  >
+                    <Image
+                      src='/images/mpesa.png'
+                      style={{ height: '25px' }}
+                      fluid
+                    />
+                  </Button>
+                </ListGroup.Item>
+              )}
+
               {loadingDeliver && <Loader />}
               {userInfo &&
                 userInfo.isAdmin &&

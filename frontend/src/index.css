@@ -58,3 +58,7 @@ h2 {
 .description {
   font-size: larger;
 }
+
+.mpesa {
+  border-radius: 5px;
+}
