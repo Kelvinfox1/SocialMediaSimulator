@@ -16,6 +16,7 @@ const ProductScreen = ({ history, match }) => {
   const [qty, setQty] = useState(1)
   const [rating, setRating] = useState(0)
   const [comment, setComment] = useState('')
+  const [message, setMessage] = useState(null)
 
   const dispatch = useDispatch()
 
@@ -44,7 +45,11 @@ const ProductScreen = ({ history, match }) => {
   }, [dispatch, match, successProductReview, product._id])
 
   const addToCartHandler = () => {
-    history.push(`/cart/${match.params.id}?qty=${qty}`)
+    if (qty < product.countInStock) {
+      setMessage(`Quantity is less than the minimum ${product.countInStock}`)
+    } else {
+      history.push(`/cart/${match.params.id}?qty=${qty}`)
+    }
   }
 
   const submitHandler = (e) => {
@@ -92,6 +97,7 @@ const ProductScreen = ({ history, match }) => {
             </Col>
             <Col md={3}>
               <Card>
+                {message && <Message variant='danger'>{message}</Message>}
                 <ListGroup variant='flush'>
                   <ListGroup.Item>
                     <Row>
@@ -149,7 +155,7 @@ const ProductScreen = ({ history, match }) => {
             </Col>
           </Row>
           <Row>
-            <Col md={6}>
+            <Col md={6} style={{ display: 'none' }}>
               <h2>Reviews</h2>
               {product.reviews.length === 0 && <Message>No Reviews</Message>}
               <ListGroup variant='flush'>

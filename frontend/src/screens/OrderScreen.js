@@ -10,6 +10,8 @@ import {
   getOrderDetails,
   payOrder,
   deliverOrder,
+  lipaNaMpesa,
+  lipaNaMpesaCallback,
 } from '../actions/orderActions'
 import {
   ORDER_PAY_RESET,
@@ -34,6 +36,13 @@ const OrderScreen = ({ match, history }) => {
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
+
+  const orderPayMpesa = useSelector((state) => state.orderPayMpesa)
+  const { loading: loadingMpesaPay, success: successMpesaPay } = orderPayMpesa
+
+  if (successMpesaPay) {
+    dispatch(lipaNaMpesaCallback())
+  }
 
   if (!loading) {
     //   Calculate prices
@@ -85,8 +94,11 @@ const OrderScreen = ({ match, history }) => {
     dispatch(deliverOrder(order))
   }
 
-  const lipaNaMpesa = () => {
+  const lipanaMpesa = () => {
+    const phone = order.shippingAddress.phone
+    dispatch(lipaNaMpesa(phone))
     console.log('mpesa')
+    console.log(phone)
   }
 
   return loading ? (
@@ -217,7 +229,7 @@ const OrderScreen = ({ match, history }) => {
                     type='button'
                     className='btn btn-block mpesa'
                     variant='light'
-                    onClick={lipaNaMpesa}
+                    onClick={lipanaMpesa}
                   >
                     <Image
                       src='/images/mpesa.png'
@@ -225,6 +237,13 @@ const OrderScreen = ({ match, history }) => {
                       fluid
                     />
                   </Button>
+                  <p>Simple steps to follow: </p>
+                  <p>Go to M-pesa Menu, Lipa na M-PESA , Buy Goods.</p>
+                  <p>Enter Till 5620359</p>
+                  <p> . ... AMOUNT Enter the exact amount as</p>
+                  <p> PIN Enter your M-pesa PIN.</p>
+                  PAYMENT DETAILS Review payment details and select OK to
+                  confirm your M-payment.
                 </ListGroup.Item>
               )}
 

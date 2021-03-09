@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import FormContainer from '../components/FormContainer'
 import CheckoutSteps from '../components/CheckoutSteps'
 import { saveShippingAddress } from '../actions/cartActions'
+import 'react-phone-number-input/style.css'
+import PhoneInput from 'react-phone-number-input'
 
 const ShippingScreen = ({ history }) => {
   const cart = useSelector((state) => state.cart)
@@ -38,13 +40,15 @@ const ShippingScreen = ({ history }) => {
 
         <Form.Group controlId='phone'>
           <Form.Label>Phone Number</Form.Label>
-          <Form.Control
-            type='text'
+          <PhoneInput
+            international
+            countryCallingCodeEditable={false}
+            defaultCountry='KEN'
             placeholder='Enter Mpesa number'
             value={phone}
             required
-            onChange={(e) => setPhone(e.target.value)}
-          ></Form.Control>
+            onChange={setPhone}
+          ></PhoneInput>
         </Form.Group>
 
         <Button type='submit' variant='primary'>

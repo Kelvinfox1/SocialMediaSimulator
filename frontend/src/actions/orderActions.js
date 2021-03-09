@@ -19,6 +19,12 @@ import {
   ORDER_DELIVER_FAIL,
   ORDER_DELIVER_SUCCESS,
   ORDER_DELIVER_REQUEST,
+  ORDER_PAY_MPESA_REQUEST,
+  ORDER_PAY_MPESA_SUCCESS,
+  ORDER_PAY_MPESA_FAIL,
+  ORDER_PAY_MPESA_CALLBACK_REQUEST,
+  ORDER_PAY_MPESA_CALLBACK_SUCCESS,
+  ORDER_PAY_MPESA_CALLBACK_FAIL,
 } from '../constants/orderConstants'
 import { logout } from './userActions'
 
@@ -257,6 +263,85 @@ export const listOrders = () => async (dispatch, getState) => {
     }
     dispatch({
       type: ORDER_LIST_FAIL,
+      payload: message,
+    })
+  }
+}
+
+export const lipaNaMpesa = (phone) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: ORDER_PAY_MPESA_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.get('/api/mpesa/stk', {
+      params: { phone },
+      config,
+    })
+
+    dispatch({
+      type: ORDER_PAY_MPESA_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: ORDER_PAY_MPESA_FAIL,
+      payload: message,
+    })
+  }
+}
+
+export const lipaNaMpesaCallback = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: ORDER_PAY_MPESA_CALLBACK_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.post('/api/mpesa/stk_callback', config)
+
+    dispatch({
+      type: ORDER_PAY_MPESA_CALLBACK_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: ORDER_PAY_MPESA_CALLBACK_FAIL,
       payload: message,
     })
   }

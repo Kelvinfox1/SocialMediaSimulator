@@ -21,6 +21,14 @@ import {
   ORDER_DELIVER_REQUEST,
   ORDER_DELIVER_RESET,
   ORDER_CREATE_RESET,
+  ORDER_PAY_MPESA_REQUEST,
+  ORDER_PAY_MPESA_SUCCESS,
+  ORDER_PAY_MPESA_FAIL,
+  ORDER_PAY_MPESA_RESET,
+  ORDER_PAY_MPESA_CALLBACK_REQUEST,
+  ORDER_PAY_MPESA_CALLBACK_SUCCESS,
+  ORDER_PAY_MPESA_CALLBACK_FAIL,
+  ORDER_PAY_MPESA_CALLBACK_RESET,
 } from '../constants/orderConstants'
 
 export const orderCreateReducer = (state = {}, action) => {
@@ -95,6 +103,29 @@ export const orderPayReducer = (state = {}, action) => {
   }
 }
 
+export const orderPayMpesaReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ORDER_PAY_MPESA_REQUEST:
+      return {
+        loading: true,
+      }
+    case ORDER_PAY_MPESA_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      }
+    case ORDER_PAY_MPESA_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      }
+    case ORDER_PAY_MPESA_RESET:
+      return {}
+    default:
+      return state
+  }
+}
+
 export const orderDeliverReducer = (state = {}, action) => {
   switch (action.type) {
     case ORDER_DELIVER_REQUEST:
@@ -157,6 +188,29 @@ export const orderListReducer = (state = { orders: [] }, action) => {
         loading: false,
         error: action.payload,
       }
+    default:
+      return state
+  }
+}
+
+export const orderPayMpesaCallbackReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ORDER_PAY_MPESA_CALLBACK_REQUEST:
+      return {
+        loading: true,
+      }
+    case ORDER_PAY_MPESA_CALLBACK_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      }
+    case ORDER_PAY_MPESA_CALLBACK_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      }
+    case ORDER_PAY_MPESA_CALLBACK_RESET:
+      return {}
     default:
       return state
   }

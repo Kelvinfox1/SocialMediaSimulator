@@ -24,6 +24,10 @@ const stkpush = asyncHandler(async (req, res) => {
   const token = req.token
   const auth = `Bearer ${token}`
   const timestamp = moment().format('YYYYMMDDHHmmss')
+  const x = req.query.phone
+  const mobile = x.substr(1)
+
+  console.log(x)
 
   const url = process.env.LIPA_NA_MPESA_URL
   const BusinessShortCode = process.env.SHORT_CODE
@@ -35,10 +39,10 @@ const stkpush = asyncHandler(async (req, res) => {
 
   const transcation_type = 'CustomerPayBillOnline'
   const amount = '1' //you can enter any amount
-  const partyA = '254724634854' //should follow the format:2547xxxxxxxx
+  const partyA = mobile //should follow the format:2547xxxxxxxx
   const partyB = process.env.SHORT_CODE
-  const phoneNumber = '254724634854'
-  const callBackUrl = 'https://79c88899d233.ngrok.io/api/mpesa/stk_callback'
+  const phoneNumber = mobile
+  const callBackUrl = 'https://4078956c7cca.ngrok.io/api/mpesa/stk_callback'
   const accountReference = 'lipa-na-mpesa-tutorial'
   const transaction_desc = 'Testing lipa na mpesa functionality'
 
@@ -79,13 +83,9 @@ const stkpush = asyncHandler(async (req, res) => {
 
 const lipaNaMpesaOnlineCallback = asyncHandler(async (req, res) => {
   //Get the transaction description
-  let message = req.body.Body.stkCallback['ResultDesc']
+  const message = req.body.Body
   console.log(message)
-
-  return res.send({
-    success: true,
-    message,
-  })
+  return req
 })
 
 export { welcome, access_token, stkpush, lipaNaMpesaOnlineCallback }
