@@ -240,7 +240,7 @@ const OrderScreen = ({ match, history }) => {
                   <p>Simple steps to follow: </p>
                   <p>Go to M-pesa Menu, Lipa na M-PESA , Buy Goods.</p>
                   <p><b>Enter Till 5828867</b></p>
-                  <p> . ... AMOUNT Enter the exact amount as</p>
+                  <p> . . AMOUNT Enter the exact amount as</p>
                   <p> PIN Enter your M-pesa PIN.</p>
                   PAYMENT DETAILS Review payment details and select OK to
                   confirm your M-payment.
