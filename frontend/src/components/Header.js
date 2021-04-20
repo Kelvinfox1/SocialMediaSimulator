@@ -33,14 +33,30 @@ const Header = () => {
                 </Nav.Link>
               </LinkContainer>
               {userInfo ? (
-                <NavDropdown title={userInfo.name} id='username'>
-                  <LinkContainer to='/profile'>
-                    <NavDropdown.Item>Profile</NavDropdown.Item>
-                  </LinkContainer>
-                  <NavDropdown.Item onClick={logoutHandler}>
-                    Logout
-                  </NavDropdown.Item>
-                </NavDropdown>
+                <>
+                  <NavDropdown title={userInfo.name} id='username'>
+                    <LinkContainer to='/profile'>
+                      <NavDropdown.Item>Profile</NavDropdown.Item>
+                    </LinkContainer>
+                    <NavDropdown.Item onClick={logoutHandler}>
+                      Logout
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                  <NavDropdown title='Bulk Services' id='username'>
+                    <LinkContainer to='/profile'>
+                      <NavDropdown.Item>
+                        <i class='fas fa-comments' aria-hidden='true'></i> Bulk
+                        sms services
+                      </NavDropdown.Item>
+                    </LinkContainer>
+                    <LinkContainer to='/profile'>
+                      <NavDropdown.Item>
+                        {' '}
+                        <i className='fas fa-envelope'></i> Bulk email services
+                      </NavDropdown.Item>
+                    </LinkContainer>
+                  </NavDropdown>
+                </>
               ) : (
                 <LinkContainer to='/login'>
                   <Nav.Link>
