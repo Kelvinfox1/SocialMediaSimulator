@@ -18,6 +18,10 @@ import UserEditScreen from './screens/UserEditScreen'
 import ProductListScreen from './screens/ProductListScreen'
 import ProductEditScreen from './screens/ProductEditScreen'
 import OrderListScreen from './screens/OrderListScreen'
+import AboutUs from './screens/AboutUs'
+import BulkEmail from './screens/BulkEmail'
+import BulkSms from './screens/BulkSms'
+import Ticket from './screens/Ticket'
 
 const App = () => {
   return (
@@ -32,6 +36,10 @@ const App = () => {
           <Route path='/login' component={LoginScreen} />
           <Route path='/register' component={RegisterScreen} />
           <Route path='/profile' component={ProfileScreen} />
+          <Route path='/ticket' component={Ticket} />
+          <Route path='/sms' component={BulkSms} />
+          <Route path='/email' component={BulkEmail} />
+          <Route path='/about' component={AboutUs} />
           <Route path='/product/:id' component={ProductScreen} />
           <Route path='/cart/:id?' component={CartScreen} />
           <Route path='/admin/userlist' component={UserListScreen} />

@@ -32,24 +32,35 @@ const Header = () => {
                   <i className='fas fa-shopping-cart'></i> Cart
                 </Nav.Link>
               </LinkContainer>
+              <LinkContainer to='/about'>
+                <Nav.Link>
+                  <i class='fa fa-info' aria-hidden='true'></i> About Us
+                </Nav.Link>
+              </LinkContainer>
               {userInfo ? (
                 <>
                   <NavDropdown title={userInfo.name} id='username'>
                     <LinkContainer to='/profile'>
                       <NavDropdown.Item>Profile</NavDropdown.Item>
                     </LinkContainer>
+                    <LinkContainer to='/ticket'>
+                      <NavDropdown.Item>
+                        Ticket (chat with admin)
+                      </NavDropdown.Item>
+                    </LinkContainer>
+
                     <NavDropdown.Item onClick={logoutHandler}>
                       Logout
                     </NavDropdown.Item>
                   </NavDropdown>
                   <NavDropdown title='Bulk Services' id='username'>
-                    <LinkContainer to='/profile'>
+                    <LinkContainer to='/sms'>
                       <NavDropdown.Item>
                         <i class='fas fa-comments' aria-hidden='true'></i> Bulk
                         sms services
                       </NavDropdown.Item>
                     </LinkContainer>
-                    <LinkContainer to='/profile'>
+                    <LinkContainer to='/email'>
                       <NavDropdown.Item>
                         {' '}
                         <i className='fas fa-envelope'></i> Bulk email services
@@ -58,11 +69,13 @@ const Header = () => {
                   </NavDropdown>
                 </>
               ) : (
-                <LinkContainer to='/login'>
-                  <Nav.Link>
-                    <i className='fas fa-user'></i> Sign In
-                  </Nav.Link>
-                </LinkContainer>
+                <>
+                  <LinkContainer to='/login'>
+                    <Nav.Link>
+                      <i className='fas fa-user'></i> Sign In
+                    </Nav.Link>
+                  </LinkContainer>
+                </>
               )}
               {userInfo && userInfo.isAdmin && (
                 <NavDropdown title='Admin' id='adminmenu'>
