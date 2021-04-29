@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import bcrypt from 'bcryptjs'
+import randtoken from 'rand-token'
 
 const userSchema = mongoose.Schema(
   {
@@ -20,6 +21,13 @@ const userSchema = mongoose.Schema(
       type: Boolean,
       required: true,
       default: false,
+    },
+    affiliate: {
+      type: String,
+      required: true,
+      default: function () {
+        return randtoken.generate(4)
+      },
     },
   },
   {

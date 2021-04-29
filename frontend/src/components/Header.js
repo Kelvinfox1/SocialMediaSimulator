@@ -18,7 +18,13 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar bg='primary' variant='dark' expand='lg' collapseOnSelect>
+      <Navbar
+        bg='primary'
+        variant='dark'
+        expand='lg'
+        collapseOnSelect
+        className='py-4'
+      >
         <Container>
           <LinkContainer to='/'>
             <Navbar.Brand className='title'>My Firm Smm</Navbar.Brand>
@@ -34,7 +40,7 @@ const Header = () => {
               </LinkContainer>
               <LinkContainer to='/about'>
                 <Nav.Link>
-                  <i class='fa fa-info' aria-hidden='true'></i> About Us
+                  <i className='fa fa-info' aria-hidden='true'></i> About Us
                 </Nav.Link>
               </LinkContainer>
               {userInfo ? (
@@ -56,8 +62,8 @@ const Header = () => {
                   <NavDropdown title='Bulk Services' id='username'>
                     <LinkContainer to='/sms'>
                       <NavDropdown.Item>
-                        <i class='fas fa-comments' aria-hidden='true'></i> Bulk
-                        sms services
+                        <i className='fas fa-comments' aria-hidden='true'></i>{' '}
+                        Bulk sms services
                       </NavDropdown.Item>
                     </LinkContainer>
                     <LinkContainer to='/email'>

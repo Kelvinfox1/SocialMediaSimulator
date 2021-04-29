@@ -11,6 +11,7 @@ import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 const ProfileScreen = ({ location, history }) => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
+  const [affiliate, setAffiliate] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [message, setMessage] = useState(null)
@@ -40,6 +41,7 @@ const ProfileScreen = ({ location, history }) => {
       } else {
         setName(user.name)
         setEmail(user.email)
+        setAffiliate(user.affiliate)
       }
     }
   }, [dispatch, history, userInfo, user, success])
@@ -103,6 +105,15 @@ const ProfileScreen = ({ location, history }) => {
                 placeholder='Confirm password'
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId='affiliate'>
+              <Form.Label>Your Affiliate Code</Form.Label>
+              <Form.Control
+                plaintext
+                readOnly
+                defaultValue={affiliate}
               ></Form.Control>
             </Form.Group>
 
