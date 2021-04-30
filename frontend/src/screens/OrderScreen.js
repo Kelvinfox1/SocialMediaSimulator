@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { PayPalButton } from 'react-paypal-button-v2'
 import { Link } from 'react-router-dom'
-import { Row, Col, ListGroup, Image, Card, Button } from 'react-bootstrap'
+import { Row, Col, ListGroup, Image, Card, Button, Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
+import FormContainer from '../components/FormContainer'
 import {
   getOrderDetails,
   payOrder,
@@ -19,6 +20,8 @@ import {
 } from '../constants/orderConstants'
 
 const OrderScreen = ({ match, history }) => {
+  const [transactionId, setTransactionId] = useState('')
+
   const orderId = match.params.id
 
   const [sdkReady, setSdkReady] = useState(false)
@@ -86,6 +89,20 @@ const OrderScreen = ({ match, history }) => {
   }, [dispatch, orderId, successPay, successDeliver, order, userInfo, history])
 
   const successPaymentHandler = (paymentResult) => {
+    console.log(paymentResult)
+    dispatch(payOrder(orderId, paymentResult))
+  }
+
+  const payHandler = (e) => {
+    e.preventDefault()
+    const paymentResult = {
+      id: transactionId,
+      status: 'mpesa',
+      update_time: Date.now(),
+      payer: {
+        email_address: order.user.email,
+      },
+    }
     console.log(paymentResult)
     dispatch(payOrder(orderId, paymentResult))
   }
@@ -237,13 +254,16 @@ const OrderScreen = ({ match, history }) => {
                       fluid
                     />
                   </Button>
-                  <p>Simple steps to follow: </p>
-                  <p>Go to M-pesa Menu, Lipa na M-PESA , Buy Goods.</p>
-                  <p><b>Enter Till 5828867</b></p>
-                  <p> . . AMOUNT Enter the exact amount as</p>
-                  <p> PIN Enter your M-pesa PIN.</p>
-                  PAYMENT DETAILS Review payment details and select OK to
-                  confirm your M-payment.
+                  <hr />
+                  <p>1. Go to Safaricom Menu</p>
+                  <p>2. Select Mpesa</p>
+                  <p>3. Select Lipa na Mpesa</p>
+                  <p>4. Select Buy Goods and Services</p>
+                  <p>
+                    5. Enter the Till No <b>5828867</b>{' '}
+                  </p>
+                  <p>6. Enter the exact amount</p>
+                  <p>7. Then Confirm and Complete the transaction</p>
                 </ListGroup.Item>
               )}
 
@@ -260,6 +280,31 @@ const OrderScreen = ({ match, history }) => {
                     >
                       Mark As Delivered
                     </Button>
+                  </ListGroup.Item>
+                )}
+              {userInfo &&
+                userInfo.isAdmin &&
+                order.paymentMethod !== 'PayPal' &&
+                !order.isPaid && (
+                  <ListGroup.Item>
+                    <>
+                      <Form onSubmit={payHandler}>
+                        <Form.Group controlId='transactionId'>
+                          <Form.Label>Transaction Id</Form.Label>
+                          <Form.Control
+                            required
+                            type='transactionId'
+                            placeholder='Enter Transaction Id'
+                            value={transactionId}
+                            onChange={(e) => setTransactionId(e.target.value)}
+                          ></Form.Control>
+                        </Form.Group>
+
+                        <Button type='submit' variant='primary'>
+                          Mark Order as Paid
+                        </Button>
+                      </Form>
+                    </>
                   </ListGroup.Item>
                 )}
             </ListGroup>

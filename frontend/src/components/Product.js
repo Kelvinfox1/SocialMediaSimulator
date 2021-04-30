@@ -12,9 +12,6 @@ const Product = ({ product }) => {
   )
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)
-  const [uri, setUri] = useState(
-    'https://openexchangerates.org/api/latest.json?app_id=8093f3f58218ab7c3556886666045f237113f5e88feba55f8bb835ea'
-  )
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,11 +32,11 @@ const Product = ({ product }) => {
     fetchData()
   }, [url])
 
-  fx.base = 'KES'
+  fx.base = 'USD'
   fx.rates = {
-    EUR: 0.745101, // eg. 1 KES === 0.00766318 EUR
-    USD: 7.781919, // 1 KES === 0.00927282 USD
-    KES: 1, // always include the base rate (1:1)
+    EUR: 0.83, // eg. 1 USD === 0.83 EUR
+    KES: 107.85, // 1 USD === 107.85 USD
+    USD: 1, // always include the base rate (1:1)
     /* etc */
   }
 
@@ -64,7 +61,7 @@ const Product = ({ product }) => {
               </Card.Title>
             </Link>
 
-            <Card.Text as='h3'>
+            <Card.Text as='h4'>
               {location.currency.symbol}{' '}
               {fx(product.price)
                 .from('KES')
