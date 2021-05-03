@@ -64,7 +64,7 @@ const Product = ({ product }) => {
             <Card.Text as='h4'>
               {location.currency.symbol}{' '}
               {fx(product.price)
-                .from('KES')
+                .from('USD')
                 .to(location.currency.code)
                 .toFixed(2)}{' '}
               per {product.name}
