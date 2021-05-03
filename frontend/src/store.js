@@ -9,6 +9,8 @@ import {
   productUpdateReducer,
   productReviewCreateReducer,
   productTopRatedReducer,
+  currencySymbolReducer,
+  exchangeRateReducer,
 } from './reducers/productReducers'
 import { cartReducer } from './reducers/cartReducers'
 import {
@@ -39,6 +41,8 @@ const reducer = combineReducers({
   productUpdate: productUpdateReducer,
   productReviewCreate: productReviewCreateReducer,
   productTopRated: productTopRatedReducer,
+  currencySymbol: currencySymbolReducer,
+  exchangeRate: exchangeRateReducer,
   cart: cartReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
@@ -69,12 +73,22 @@ const shippingAddressFromStorage = localStorage.getItem('shippingAddress')
   ? JSON.parse(localStorage.getItem('shippingAddress'))
   : {}
 
+const currencyFromStorage = localStorage.getItem('currency')
+  ? JSON.parse(localStorage.getItem('currency'))
+  : {}
+
+const exchangeRateFromStorage = localStorage.getItem('exchangeRate')
+  ? JSON.parse(localStorage.getItem('exchangeRate'))
+  : {}
+
 const initialState = {
   cart: {
     cartItems: cartItemsFromStorage,
     shippingAddress: shippingAddressFromStorage,
   },
   userLogin: { userInfo: userInfoFromStorage },
+  currencySymbol: { currency: currencyFromStorage },
+  exchangeRate: { Rate: exchangeRateFromStorage },
 }
 
 const middleware = [thunk]

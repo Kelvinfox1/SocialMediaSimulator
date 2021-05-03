@@ -9,7 +9,11 @@ import Paginate from '../components/Paginate'
 import ProductCarousel from '../components/ProductCarousel'
 import Meta from '../components/Meta'
 import DisplaySvg from '../components/DisplaySvg'
-import { listProducts } from '../actions/productActions'
+import {
+  listProducts,
+  productCurrency,
+  productExchangeRate,
+} from '../actions/productActions'
 
 const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword
@@ -23,6 +27,8 @@ const HomeScreen = ({ match }) => {
 
   useEffect(() => {
     dispatch(listProducts(keyword, pageNumber))
+    dispatch(productCurrency())
+    dispatch(productExchangeRate())
   }, [dispatch, keyword, pageNumber])
 
   return (

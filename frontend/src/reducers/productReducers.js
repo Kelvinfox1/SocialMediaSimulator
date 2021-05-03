@@ -23,6 +23,12 @@ import {
   PRODUCT_TOP_REQUEST,
   PRODUCT_TOP_SUCCESS,
   PRODUCT_TOP_FAIL,
+  CURRENCY_SYMBOL_REQUEST,
+  CURRENCY_SYMBOL_SUCCESS,
+  CURRENCY_SYMBOL_FAIL,
+  EXCHANGE_RATE_REQUEST,
+  EXCHANGE_RATE_SUCCESS,
+  EXCHANGE_RATE_FAIL,
 } from '../constants/productConstants'
 
 export const productListReducer = (state = { products: [] }, action) => {
@@ -124,6 +130,32 @@ export const productTopRatedReducer = (state = { products: [] }, action) => {
     case PRODUCT_TOP_SUCCESS:
       return { loading: false, products: action.payload }
     case PRODUCT_TOP_FAIL:
+      return { loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const currencySymbolReducer = (state = {}, action) => {
+  switch (action.type) {
+    case CURRENCY_SYMBOL_REQUEST:
+      return { loading: true }
+    case CURRENCY_SYMBOL_SUCCESS:
+      return { loading: false, currency: action.payload }
+    case CURRENCY_SYMBOL_FAIL:
+      return { loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const exchangeRateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case EXCHANGE_RATE_REQUEST:
+      return { loading: true }
+    case EXCHANGE_RATE_SUCCESS:
+      return { loading: false, Rate: action.payload }
+    case EXCHANGE_RATE_FAIL:
       return { loading: false, error: action.payload }
     default:
       return state
