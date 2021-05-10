@@ -7,6 +7,7 @@ import CheckoutSteps from '../components/CheckoutSteps'
 import { createOrder } from '../actions/orderActions'
 import { ORDER_CREATE_RESET } from '../constants/orderConstants'
 import { USER_DETAILS_RESET } from '../constants/userConstants'
+import fx from 'money'
 
 const PlaceOrderScreen = ({ history }) => {
   const dispatch = useDispatch()
@@ -36,6 +37,15 @@ const PlaceOrderScreen = ({ history }) => {
 
   const orderCreate = useSelector((state) => state.orderCreate)
   const { order, success, error } = orderCreate
+
+  const currencySymbol = localStorage.getItem('currency')
+  const currency = JSON.parse(currencySymbol)
+
+  const exchangeRate = localStorage.getItem('exchangeRate')
+  const Rate = JSON.parse(exchangeRate)
+
+  fx.base = Rate.base
+  fx.rates = Rate.rates
 
   useEffect(() => {
     if (success) {
@@ -103,8 +113,16 @@ const PlaceOrderScreen = ({ history }) => {
                           </Link>
                         </Col>
                         <Col md={4}>
-                          {item.qty} x ksh.{item.price} = $
-                          {item.qty * item.price}
+                          {item.qty} x {currency.symbol}.
+                          {fx(item.price)
+                            .from('USD')
+                            .to(currency.code)
+                            .toFixed(3)}{' '}
+                          ={currency.symbol}.
+                          {fx(item.qty * item.price)
+                            .from('USD')
+                            .to(currency.code)
+                            .toFixed(3)}
                         </Col>
                       </Row>
                     </ListGroup.Item>
@@ -123,7 +141,13 @@ const PlaceOrderScreen = ({ history }) => {
               <ListGroup.Item>
                 <Row>
                   <Col>Items</Col>
-                  <Col>ksh.{cart.itemsPrice}</Col>
+                  <Col>
+                    {currency.symbol}.
+                    {fx(cart.itemsPrice)
+                      .from('USD')
+                      .to(currency.code)
+                      .toFixed(3)}
+                  </Col>
                 </Row>
               </ListGroup.Item>
               {/*   <ListGroup.Item>
@@ -141,7 +165,13 @@ const PlaceOrderScreen = ({ history }) => {
               <ListGroup.Item>
                 <Row>
                   <Col>Total</Col>
-                  <Col>ksh.{cart.totalPrice}</Col>
+                  <Col>
+                    {currency.symbol}.
+                    {fx(cart.totalPrice)
+                      .from('USD')
+                      .to(currency.code)
+                      .toFixed(3)}
+                  </Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>

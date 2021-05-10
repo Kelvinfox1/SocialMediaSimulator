@@ -18,6 +18,7 @@ import {
   ORDER_PAY_RESET,
   ORDER_DELIVER_RESET,
 } from '../constants/orderConstants'
+import fx from 'money'
 
 const OrderScreen = ({ match, history }) => {
   const [transactionId, setTransactionId] = useState('')
@@ -57,6 +58,15 @@ const OrderScreen = ({ match, history }) => {
       order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
     )
   }
+
+  const currencySymbol = localStorage.getItem('currency')
+  const currency = JSON.parse(currencySymbol)
+
+  const exchangeRate = localStorage.getItem('exchangeRate')
+  const Rate = JSON.parse(exchangeRate)
+
+  fx.base = Rate.base
+  fx.rates = Rate.rates
 
   useEffect(() => {
     if (!userInfo) {
@@ -186,8 +196,16 @@ const OrderScreen = ({ match, history }) => {
                           </Link>
                         </Col>
                         <Col md={4}>
-                          {item.qty} x ksh.{item.price} = ksh.
-                          {item.qty * item.price}
+                          {item.qty} x {currency.symbol}.
+                          {fx(item.price)
+                            .from('USD')
+                            .to(currency.code)
+                            .toFixed(3)}{' '}
+                          ={currency.symbol}.
+                          {fx(item.qty * item.price)
+                            .from('USD')
+                            .to(currency.code)
+                            .toFixed(3)}
                         </Col>
                       </Row>
                     </ListGroup.Item>
@@ -206,7 +224,13 @@ const OrderScreen = ({ match, history }) => {
               <ListGroup.Item>
                 <Row>
                   <Col>Items</Col>
-                  <Col>ksh.{order.itemsPrice}</Col>
+                  <Col>
+                    {currency.symbol}.{' '}
+                    {fx(order.itemsPrice)
+                      .from('USD')
+                      .to(currency.code)
+                      .toFixed(3)}
+                  </Col>
                 </Row>
               </ListGroup.Item>
               {/*   <ListGroup.Item>
@@ -224,7 +248,14 @@ const OrderScreen = ({ match, history }) => {
               <ListGroup.Item>
                 <Row>
                   <Col>Total</Col>
-                  <Col>ksh.{order.totalPrice}</Col>
+                  <Col>
+                    {' '}
+                    {currency.symbol}.
+                    {fx(order.totalPrice)
+                      .from('USD')
+                      .to(currency.code)
+                      .toFixed(0)}
+                  </Col>
                 </Row>
               </ListGroup.Item>
               {!order.isPaid && order.paymentMethod === 'PayPal' && (
@@ -262,7 +293,7 @@ const OrderScreen = ({ match, history }) => {
                   <p>
                     5. Enter the Till No <b>5828867</b>{' '}
                   </p>
-                  <p>6. Enter the exact amount</p>
+                  <p>6. Enter the exact amount indicated in the total</p>
                   <p>7. Then Confirm and Complete the transaction</p>
                 </ListGroup.Item>
               )}
