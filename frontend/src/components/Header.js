@@ -49,17 +49,12 @@ const Header = () => {
                     <LinkContainer to='/profile'>
                       <NavDropdown.Item>Profile</NavDropdown.Item>
                     </LinkContainer>
-                    <LinkContainer to='/ticket'>
-                      <NavDropdown.Item>
-                        Ticket (chat with admin)
-                      </NavDropdown.Item>
-                    </LinkContainer>
 
                     <NavDropdown.Item onClick={logoutHandler}>
                       Logout
                     </NavDropdown.Item>
                   </NavDropdown>
-                  <NavDropdown title='Bulk Services' id='username'>
+                  {/*     <NavDropdown title='Bulk Services' id='username'>
                     <LinkContainer to='/sms'>
                       <NavDropdown.Item>
                         <i className='fas fa-comments' aria-hidden='true'></i>{' '}
@@ -72,7 +67,7 @@ const Header = () => {
                         <i className='fas fa-envelope'></i> Bulk email services
                       </NavDropdown.Item>
                     </LinkContainer>
-                  </NavDropdown>
+                  </NavDropdown> */}
                 </>
               ) : (
                 <>

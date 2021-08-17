@@ -10,7 +10,7 @@ import { register } from '../actions/userActions'
 const RegisterScreen = ({ location, history }) => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
-  const [affiliate, setAffiliate] = useState('')
+  const [isaffiliate, setAffiliate] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [message, setMessage] = useState(null)
@@ -33,7 +33,8 @@ const RegisterScreen = ({ location, history }) => {
     if (password !== confirmPassword) {
       setMessage('Passwords do not match')
     } else {
-      dispatch(register(name, email, password, affiliate))
+      dispatch(register(name, email, password, isaffiliate))
+      console.log(isaffiliate)
     }
   }
 
@@ -91,7 +92,7 @@ const RegisterScreen = ({ location, history }) => {
           <Form.Control
             type='affiliate'
             placeholder='affiliate code '
-            value={affiliate}
+            value={isaffiliate}
             onChange={(e) => setAffiliate(e.target.value)}
           ></Form.Control>
         </Form.Group>

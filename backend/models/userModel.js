@@ -29,6 +29,9 @@ const userSchema = mongoose.Schema(
         return randtoken.generate(4)
       },
     },
+    isaffiliate: {
+      type: String,
+    },
   },
   {
     timestamps: true,

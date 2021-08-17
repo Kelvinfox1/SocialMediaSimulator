@@ -44,6 +44,9 @@ const PlaceOrderScreen = ({ history }) => {
   const exchangeRate = localStorage.getItem('exchangeRate')
   const Rate = JSON.parse(exchangeRate)
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   fx.base = Rate.base
   fx.rates = Rate.rates
 
@@ -66,6 +69,7 @@ const PlaceOrderScreen = ({ history }) => {
         shippingPrice: cart.shippingPrice,
         taxPrice: cart.taxPrice,
         totalPrice: cart.totalPrice,
+        Affiliates_code: userInfo.recomendedBy,
       })
     )
   }

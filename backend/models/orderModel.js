@@ -65,6 +65,9 @@ const orderSchema = mongoose.Schema(
     deliveredAt: {
       type: Date,
     },
+    Affiliates_code: {
+      type: String,
+    },
   },
   {
     timestamps: true,

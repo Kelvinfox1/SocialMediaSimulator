@@ -40,6 +40,7 @@ const OrderListScreen = ({ history }) => {
               <th>TOTAL</th>
               <th>PAID</th>
               <th>DELIVERED</th>
+              <th>AFFILIATES CODE</th>
               <th></th>
             </tr>
           </thead>
@@ -64,6 +65,7 @@ const OrderListScreen = ({ history }) => {
                     <i className='fas fa-times' style={{ color: 'red' }}></i>
                   )}
                 </td>
+                <td>{order.Affiliates_code}</td>
                 <td>
                   <LinkContainer to={`/order/${order._id}`}>
                     <Button variant='light' className='btn-sm'>

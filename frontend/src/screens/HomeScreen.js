@@ -25,9 +25,16 @@ const HomeScreen = ({ match }) => {
   const productList = useSelector((state) => state.productList)
   const { loading, error, products, page, pages } = productList
 
+  const currencySymbol = useSelector((state) => state.currencySymbol)
+  const { currency } = currencySymbol
+
   useEffect(() => {
+    if (Object.keys(currency).length == 0) {
+      dispatch(productCurrency())
+    }
+
     dispatch(listProducts(keyword, pageNumber))
-    dispatch(productCurrency())
+
     dispatch(productExchangeRate())
   }, [dispatch, keyword, pageNumber])
 
