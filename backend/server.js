@@ -12,6 +12,8 @@ import orderRoutes from './routes/orderRoutes.js'
 import uploadRoutes from './routes/uploadRoutes.js'
 import mpesaRoutes from './routes/mpesaRoutes.js'
 
+import cors from 'cors'
+
 dotenv.config()
 
 connectDB()
@@ -23,6 +25,8 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.use(express.json())
+
+app.use(cors())
 
 app.use('/api/products', productRoutes)
 app.use('/api/users', userRoutes)
